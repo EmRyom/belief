@@ -43,34 +43,53 @@ def cnf(first,exp):
     
     
     if t==Or or t==And or t==Implies:
-        left=exp.args[0]
+        arguments = []
+        for i in range(len(exp.args)):
+            arguments.append(exp.args[i])
         print(exp.args)
-        right=exp.args[1]
+        print(arguments)
     
     if t==Not:
         center=exp.args[0]
     
     if t==Implies:
-        return stop(~again(left) | again(right))
+        return stop(~again(arguments[0]) | again(arguments[1]))
         
     if t==Not:
         if type(center)==And:
-            return stop(again(~center.args[0]) | again(~center.args[1]))
+            for i in range(len(center.args)-1):
+                if i==0:
+                    expression = again(~center.args[0]) | again(~center.args[1])
+                else:
+                    expression = expression | again(~center.args[i+1])
+            return stop(expression)
         if type(center)==Or:
-            return stop(again(~center.args[0]) & again(~center.args[1]))
+            for i in range(len(center.args)-1):
+                if i==0:
+                    expression = again(~center.args[0]) & again(~center.args[1])
+                else:
+                    expression = expression & again(~center.args[i+1])
+            return stop(expression)
         if type(center)==Not:
             return stop(center.args[0])
         return stop(~center)
     
     if t==Or:
-        if type(right)==And:
-            return stop(again(left | right.args[0]) & again(left | right.args[1]))
-        if type(left)==And:
-            return stop(again(left.args[0] | right) & again(left.args[1] | right))
-        return stop(again(left) | again(right))
+        for i in range(len(arguments)-1):
+            if i==0:
+                expression = again(arguments[0]) & again(arguments[1])
+            else:
+                expression = expression | again(arguments[i+1])
+        return to_cnf(expression)
+            
     
     if t==And:
-        return stop(again(left) & again(right))
+        for i in range(len(arguments)-1):
+            if i==0:
+                expression = again(arguments[0]) & again(arguments[1])
+            else:
+                expression = expression & again(arguments[i+1])
+        return stop(expression)
     
     
     
@@ -78,7 +97,7 @@ def cnf(first,exp):
     
     
     
-to_cnf(( ( b >> ( ( a | ( a >> e ) ) & ( b & c ) ) ) & ~ g )) == f2(( ( b >> ( ( a | ( a >> e ) ) & ( b & c ) ) ) & ~ g ))
+print(to_cnf(( ( b >> ( ( a | ( a >> e ) ) & ( b & c ) ) ) & ~ g )) == f2(( ( b >> ( ( a | ( a >> e ) ) & ( b & c ) ) ) & ~ g )))
     
     
     
