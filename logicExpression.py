@@ -2,6 +2,10 @@ from sympy import *
 from time import sleep
 a,b,c,d,e,f,g,h = symbols('a,b,c,d,e,f,g,h')
 
+
+def Biconditional(arg1, arg2):
+    return((arg1>>arg2) & (arg2>>arg1)) 
+
 def f2(exp):
     return cnf(True,exp)
 def f1(exp):
@@ -9,19 +13,6 @@ def f1(exp):
 def f0(exp):
     return cnf(False,exp)
 
-def integ(exp):
-    t=type(exp)
-    ar=exp.args
-    le=len(ar)
-    if le==2:
-        return t(ar[0],ar[1])
-    if le==1:
-        return t(ar[0])
-    
-    if le>2:
-        return t(ar[0],t(ar[1],ar[1:]))
-    if True:
-        print("WTF")
 
 def cnf(first,exp):
     
@@ -30,16 +21,12 @@ def cnf(first,exp):
         return exp
     
     
-    exp=integ(exp)
-    
-    
     again = f2
     if first:
         stop = f0
     if not first:
         stop = f1
     print(exp, len(exp.args))
-    sleep(1)
     
     
     if t==Or or t==And or t==Implies:
@@ -77,7 +64,7 @@ def cnf(first,exp):
     if t==Or:
         for i in range(len(arguments)-1):
             if i==0:
-                expression = again(arguments[0]) & again(arguments[1])
+                expression = again(arguments[0]) | again(arguments[1])
             else:
                 expression = expression | again(arguments[i+1])
         return to_cnf(expression)
