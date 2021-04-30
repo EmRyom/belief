@@ -3,7 +3,7 @@ from time import sleep
 a,b,c,d,e,f,g,h = symbols('a,b,c,d,e,f,g,h')
 
 
-def Biconditional(arg1, arg2):
+def Bi(arg1, arg2): # Biconditional
     return((arg1>>arg2) & (arg2>>arg1)) 
 
 def f2(exp):
@@ -26,23 +26,21 @@ def cnf(first,exp):
         stop = f0
     if not first:
         stop = f1
-    print(exp, len(exp.args))
+    #print(exp, len(exp.args))
     
     
     if t==Or or t==And or t==Implies:
         arguments = []
         for i in range(len(exp.args)):
             arguments.append(exp.args[i])
-        print(exp.args)
-        print(arguments)
-    
-    if t==Not:
-        center=exp.args[0]
+        #print(exp.args)
+        #print(arguments)
     
     if t==Implies:
         return stop(~again(arguments[0]) | again(arguments[1]))
         
     if t==Not:
+        center=exp.args[0]
         if type(center)==And:
             for i in range(len(center.args)-1):
                 if i==0:
@@ -84,7 +82,7 @@ def cnf(first,exp):
     
     
     
-print(to_cnf(( ( b >> ( ( a | ( a >> e ) ) & ( b & c ) ) ) & ~ g )) == f2(( ( b >> ( ( a | ( a >> e ) ) & ( b & c ) ) ) & ~ g )))
+#print(to_cnf(( ( b >> ( ( a | ( a >> e ) ) & ( b & c ) ) ) & ~ g )) == f2(( ( b >> ( ( a | ( a >> e ) ) & ( b & c ) ) ) & ~ g )))
     
     
     
