@@ -26,7 +26,7 @@ def cnf(first,exp):
         stop = f0
     if not first:
         stop = f1
-    #print(exp, len(exp.args))
+    print(exp, len(exp.args))
     
     
     if t==Or or t==And or t==Implies:
@@ -60,12 +60,45 @@ def cnf(first,exp):
         return stop(~center)
     
     if t==Or:
-        for i in range(len(arguments)-1):
-            if i==0:
-                expression = again(arguments[0]) | again(arguments[1])
-            else:
-                expression = expression | again(arguments[i+1])
-        return to_cnf(expression)
+        # checks whether distributive law needs to be applied
+        dist_law = 0
+        for arg in arguments:
+            if (type(arg)==And):
+                dist_law = 1
+        
+        if dist_law == 1:
+            subexp = []
+            for i in range(len(arguments)):
+                helper = []
+                if type(arguments[i])==And:
+                    for arg in arguments[i].args:
+                        if subexp == []:
+                            helper.append(again(arg))
+                        else:
+                            for subarg in subexp:
+                                helper.append(subarg | again(arg))
+                    subexp = helper
+                else:
+                    if subexp == []:
+                        subexp.append(again(arguments[i]))
+                    else:
+                        for subarg in subexp: 
+                            subexp.append(subarg | again(arguments[i]))
+            
+            for i in range (len(subexp)):
+                if i==0:
+                    expression = subexp[i]
+                else:
+                    expression = expression & subexp[i]
+                    
+        else:
+            for i in range(len(arguments)-1):
+                if i==0:
+                    expression = again(arguments[0]) | again(arguments[1])
+                else:
+                    expression = expression | again(arguments[i+1])
+                    
+        return expression
             
     
     if t==And:
@@ -81,8 +114,8 @@ def cnf(first,exp):
     
     
     
-    
-#print(to_cnf(( ( b >> ( ( a | ( a >> e ) ) & ( b & c ) ) ) & ~ g )) == f2(( ( b >> ( ( a | ( a >> e ) ) & ( b & c ) ) ) & ~ g )))
+#print(f2(c | (a & b) | (d & g)))   
+print(to_cnf(( ( b >> ( ( a | ( a >> e ) ) & ( b & c ) ) ) & ~ g )) == f2(( ( b >> ( ( a | ( a >> e ) ) & ( b & c ) ) ) & ~ g )))
     
     
     
