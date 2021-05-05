@@ -26,7 +26,7 @@ def cnf(first,exp):
         stop = f0
     if not first:
         stop = f1
-    print(exp, len(exp.args))
+    #print(exp, len(exp.args))
     
     
     if t==Or or t==And or t==Implies:
@@ -115,7 +115,7 @@ def cnf(first,exp):
     
     
 #print(f2(c | (a & b) | (d & g)))   
-print(to_cnf(( ( b >> ( ( a | ( a >> e ) ) & ( b & c ) ) ) & ~ g )) == f2(( ( b >> ( ( a | ( a >> e ) ) & ( b & c ) ) ) & ~ g )))
+#print(to_cnf(( ( b >> ( ( a | ( a >> e ) ) & ( b & c ) ) ) & ~ g )) == f2(( ( b >> ( ( a | ( a >> e ) ) & ( b & c ) ) ) & ~ g )))
     
     
     

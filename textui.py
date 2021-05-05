@@ -1,5 +1,6 @@
 from logicExpression import *
 from sys import exit
+from revision import revision
 
 #print('''
 
@@ -21,15 +22,15 @@ def mistake():
 
 while(True):
     print('Belief base:')
+    print(beliefBase)
     
-    
-    toPrint = "{"                         # Print current belief base
+    '''toPrint = "{"                         # Print current belief base
     if len(textBase)>0:
         toPrint+=textBase[0]
     for i in range(1,len(textBase)):
         toPrint += ", "+textBase[i]
     toPrint += "}"
-    print(toPrint)
+    print(toPrint)'''
     
     
     print("Please enter a formula:")      # Get user input
@@ -54,9 +55,11 @@ while(True):
     cnfs = []                            # Transform belief base to CNF
     for i in range(len(beliefBase)):
         cnfs.append(cnf(True,beliefBase[i]))
-        
-    beliefBase.append(exp)
-    textBase.append(text)
+    
+    
+    # This is where resolution comes into play
+    beliefBase = revision(False,beliefBase,exp)
+    #textBase.append(text)
     
         
 
