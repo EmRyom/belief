@@ -23,19 +23,15 @@ def mistake():
 while(True):
     print('Belief base:')
     print(beliefBase)
-    
-    '''toPrint = "{"                         # Print current belief base
-    if len(textBase)>0:
-        toPrint+=textBase[0]
-    for i in range(1,len(textBase)):
-        toPrint += ", "+textBase[i]
-    toPrint += "}"
-    print(toPrint)'''
-    
-    
+    print("Revision or contraction? R or C")
+    while(True):
+        command = input()
+        if 'r' in command.lower() or 'c' in command.lower():
+            break
+        if 'c' not in command.lower() and 'r' not in command.lower():
+            print("Please enter R or C")
     print("Please enter a formula:")      # Get user input
     while(True):
-        
         try:
             text=input()
             if text=="'":
@@ -58,7 +54,11 @@ while(True):
     
     
     # This is where resolution comes into play
-    beliefBase = revision(False,beliefBase,exp)
+    resolutionres = True
+    if 'r' in command.lower():
+        beliefBase = revision(resolutionres,beliefBase,exp,'r')
+    if 'c' in command.lower():
+        beliefBase = revision(resolutionres,beliefBase,~exp,'c')
     #textBase.append(text)
     
         

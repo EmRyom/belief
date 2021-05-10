@@ -42,6 +42,8 @@ def order(bb,inp):
             formula2 = formula2.subs(var[i],assignment[i])
         if formula2 == True:
             plaus.append((correct,assignment,var))
+            
+            
     m = 0
     best = []
     for i in range(len(plaus)):
