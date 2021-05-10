@@ -1,4 +1,4 @@
-from logicExpression import *
+from cnfConverter import *
 from sys import exit
 from revision import revision
 
