@@ -60,6 +60,9 @@ def resolve(x_, y_):
 #gets through all formulas
 def resolution (kb_,alpha_):  
     kb = set(kb_.copy())
+    
+    if len(kb)==0 or kb_==alpha_:
+        return True
     alpha = set(alpha_.copy())
     init_clauses = kb.union(alpha)
     finSet = set([])
@@ -103,7 +106,7 @@ def resolution (kb_,alpha_):
 
    
             
-
+'''
 ####
 #kbE = set([~a|b|c,~b|a,~c|a,~a])
 #alphaE = set([b])
@@ -111,12 +114,12 @@ def resolution (kb_,alpha_):
 kbF = set([~a|b, c])
 kbT = set([~a|b, ~c|b, c])
 alpha = set([~b])
-resol = resolution (kbT,alphaT)
+resol = resolution (kbT,alpha)
 
 print("Resolution: \n");
 if resol:
     print("True. KB entails alpha")
 else:
     print("False. KB does not entail alpha")
-
+'''
 

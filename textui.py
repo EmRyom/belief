@@ -1,6 +1,7 @@
 from cnfConverter import *
 from sys import exit
 from revision import revision
+from resolution import resolution
 
 #print('''
 
@@ -54,7 +55,12 @@ while(True):
     
     
     # This is where resolution comes into play
-    resolutionres = True
+    resolutionres = not resolution(set(cnfs), set([cnf(True,exp)]))
+    if resolutionres:
+        print("True. KB entails alpha")
+    else:
+        print("False. KB does not entail alpha")
+
     if 'r' in command.lower():
         beliefBase = revision(resolutionres,beliefBase,exp,'r')
     if 'c' in command.lower():

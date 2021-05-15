@@ -17,8 +17,9 @@ def checkFormula(bb,ta):
 
 def revision(bool,bb,inp,command):
     if command=='r':
-        if bool==True:  # Expansion
-            bb.append(inp)
+        if bool==True or len(bb) == 0 :  # Expansion
+            if not (inp in bb):
+                bb.append(inp)
             return bb
         else:  # Revision
             ta = order(bb,inp)
