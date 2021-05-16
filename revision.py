@@ -26,7 +26,7 @@ def revision(bool,bb,inp,command):
             newbb = checkFormula(bb,ta)
             newbb.add(inp)
             return list(newbb)
-    else:
+    else:  # Contraction
         if bool==False:
             return bb
         else:
