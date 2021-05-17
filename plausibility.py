@@ -44,7 +44,7 @@ def order(bb,inp):
             plaus.append((correct,assignment,var))
             
             
-    m = 0
+    m = -1
     best = []
     for i in range(len(plaus)):
         if plaus[i][0]>m:
